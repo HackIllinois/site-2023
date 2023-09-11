@@ -1,4 +1,5 @@
 import { WithId, MethodType, FileType, RegistrationType, PrizeType, MentorTimeslotType, EventType, RegistrationRole, ProfileType, RSVPType, DecisionType, ProfileResponseType, ZoomLinks } from '../util/types';
+import eventsData from '../data/events.json';
 
 const API = 'https://api.hackillinois.org';
 
@@ -134,7 +135,8 @@ export function setMentorTimeslots(data: MentorTimeslotType[]): Promise<MentorTi
 }
 
 export function getEvents(): Promise<EventType[]> {
-  return request('GET', '/event/').then((res) => res.events);
+  // return request('GET', '/event/').then((res) => res.events);
+  return Promise.resolve(eventsData.events.filter(event => !event.isPrivate));
 }
 
 export function getProfile(): Promise<ProfileResponseType> {
