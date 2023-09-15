@@ -135,8 +135,7 @@ export function setMentorTimeslots(data: MentorTimeslotType[]): Promise<MentorTi
 }
 
 export function getEvents(): Promise<EventType[]> {
-  // return request('GET', '/event/').then((res) => res.events);
-  return Promise.resolve(eventsData.events.filter(event => !event.isPrivate));
+  return Promise.resolve(eventsData.events);
 }
 
 export function getProfile(): Promise<ProfileResponseType> {
