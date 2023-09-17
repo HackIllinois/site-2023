@@ -10,6 +10,7 @@ import TICKETS_VERTICAL from '../../assets/schedule/tickets_vertical.svg';
 import TIME_ICON from '../../assets/schedule/time_icon.svg';
 import LOCATION_ICON from '../../assets/schedule/location_icon.svg';
 import Navbar from "components/Navbar";
+import { getEvents } from "util/api";
 
 interface Event {
   id: string,
@@ -30,17 +31,13 @@ const Schedule: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    const getEvents = async() => {
-      const { data } = await axios("https://api.hackillinois.org/event/");
-
-      const { events } = data;
-  
+    const fetchEvents = async () => {
+      const events = await getEvents();
       setEvents(events);
-    }
-    
-    getEvents();
-  }, [setEvents])
-  
+    };
+
+    fetchEvents();
+  }, [setEvents]);
 
   const fridayEvents = events.filter(event => (
     Date.parse("February 24, 2023") < event.startTime * 1000 && event.startTime * 1000 < Date.parse("February 25, 2023")
